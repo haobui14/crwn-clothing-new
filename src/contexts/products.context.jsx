@@ -8,7 +8,7 @@ import PRODUCTS from '../shop-data.json';
 
 //see as the actual value you want to access
 export const ProductContext = createContext({
-  products: []
+  products: [],
 });
 
 export const ProductsProvider = ({ children }) => {
