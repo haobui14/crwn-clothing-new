@@ -8,7 +8,7 @@ import {
   signInWithGooglePopup,
 } from '../../utils/firebase/firebase.utils';
 
-import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
+import { SignInContainer, ButtonContainer } from './sign-in-form.styles';
 
 const defaultFormFields = {
   email: '',
@@ -66,7 +66,7 @@ const SignInForm = () => {
           name='password'
           value={password}
         />
-        <ButtonsContainer>
+        <ButtonContainer>
           <Button type='submit'>Sign In</Button>
           <Button
             buttonType={BUTTON_TYPE_CLASSES.google}
@@ -75,7 +75,7 @@ const SignInForm = () => {
           >
             Sign In With Google
           </Button>
-        </ButtonsContainer>
+        </ButtonContainer>
       </form>
     </SignInContainer>
   );
