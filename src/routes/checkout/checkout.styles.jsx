@@ -17,7 +17,7 @@ export const CheckoutHeader = styled.div`
   border-bottom: 1px solid darkgrey;
 `;
 
-export const Header = styled.div`
+export const HeaderBlock = styled.div`
   text-transform: capitalize;
   width: 23%;
 
