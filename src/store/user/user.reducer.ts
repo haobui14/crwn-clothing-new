@@ -1,5 +1,7 @@
 import { AnyAction } from 'redux';
 
+import { USER_ACTION_TYPES } from './user.types';
+
 import {
   signInFailed,
   signUpFailed,
@@ -22,33 +24,21 @@ const INITIAL_STATE: UserState = {
   error: null,
 };
 
-export const userReducer = (
-  state = INITIAL_STATE,
-  action: AnyAction
-): UserState => {
+export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
   if (signInSuccess.match(action)) {
-    return {
-      ...state,
-      currentUser: action.payload,
-    };
+    return { ...state, currentUser: action.payload };
   }
 
   if (signOutSuccess.match(action)) {
-    return {
-      ...state,
-      currentUser: null,
-    };
+    return { ...state, currentUser: null };
   }
 
   if (
-    signOutFailed.match(action) ||
+    signInFailed.match(action) ||
     signUpFailed.match(action) ||
-    signInFailed.match(action)
+    signOutFailed.match(action)
   ) {
-    return {
-      ...state,
-      error: action.payload,
-    };
+    return { ...state, error: action.payload };
   }
 
   return state;
