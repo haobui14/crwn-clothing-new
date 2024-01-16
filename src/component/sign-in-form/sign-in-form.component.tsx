@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
-
-import { signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
 import { SignInContainer, ButtonContainer } from './sign-in-form.styles';
 import {
@@ -30,20 +28,18 @@ const SignInForm = () => {
     dispatch(googleSignInStart());
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
-      if (error.code === 'auth/invalid-login-credentials') {
-        alert('Wrong email or password!');
-      }
+      console.log('user sign in failed', error);
     }
   };
 
-  const handlechange = (event) => {
+  const handlechange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -52,7 +48,7 @@ const SignInForm = () => {
     <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your Email and Password</span>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormInput
           label='Email'
           type='email'
@@ -70,9 +66,7 @@ const SignInForm = () => {
           value={password}
         />
         <ButtonContainer>
-          <Button type='submit' onClick={handleSubmit}>
-            Sign In
-          </Button>
+          <Button type='submit'>Sign In</Button>
           <Button
             buttonType={BUTTON_TYPE_CLASSES.google}
             type='button'
