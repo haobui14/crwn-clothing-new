@@ -23,3 +23,8 @@ export const ItemDetails = styled.div`
     font-size: 16px;
   }
 `;
+
+export const RemoveCartItem = styled.div`
+  cursor: pointer;
+  margin: auto;
+`;
