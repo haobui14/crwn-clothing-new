@@ -3,12 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import { Routes, Route } from 'react-router-dom';
 
-// import Navigation from './routes/navigation/navigation.component';
-// import Authentication from './routes/authentication/authentication.component';
-// import Shop from './routes/shop/shop.component';
-// import Checkout from './routes/checkout/checkout.component';
 import Spinner from './component/spinner/spinner.component';
 import { checkUserSession } from './store/user/user.action';
+import { GlobalStyle } from './global.styles';
 
 const Shop = lazy(() => import('./routes/shop/shop.component'));
 const Checkout = lazy(() => import('./routes/checkout/checkout.component'));
@@ -29,6 +26,7 @@ const App = () => {
 
   return (
     <Suspense fallback={<Spinner />}>
+      <GlobalStyle />
       <Routes>
         <Route path='/' element={<Navigation />}>
           <Route index element={<Home />} />
