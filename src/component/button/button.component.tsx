@@ -1,16 +1,16 @@
-import { FC, PropsWithChildren, ButtonHTMLAttributes } from 'react';
+import { FC, PropsWithChildren, ButtonHTMLAttributes } from "react";
 
 import {
   BaseButton,
   GoogleSignInButton,
   InvertedButton,
   ButtonSpinner,
-} from './button.styles';
+} from "./button.styles";
 
 export enum BUTTON_TYPE_CLASSES {
-  base = 'base',
-  google = 'google-sign-in',
-  inverted = 'inverted',
+  base = "base",
+  google = "google-sign-in",
+  inverted = "inverted",
 }
 
 export type ButtonProps = {
@@ -33,7 +33,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
 }) => {
   const CustomButton = getButton(buttonType);
   return (
-    <CustomButton disabled={isLoading} {...otherProps}>
+    <CustomButton disabled={isLoading} aria-busy={isLoading} {...otherProps}>
       {isLoading ? <ButtonSpinner /> : children}
     </CustomButton>
   );

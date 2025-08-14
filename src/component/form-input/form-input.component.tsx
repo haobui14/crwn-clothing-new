@@ -1,27 +1,21 @@
-import { InputHTMLAttributes, FC } from 'react';
+import { FC } from "react";
+import TextField from "@mui/material/TextField";
 
-import { Input, Group, FormInputLabel } from './form-input.styles';
+import { TextFieldProps } from "@mui/material/TextField";
 
 type FormInputProps = {
   label: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+} & Omit<TextFieldProps, "variant" | "label">;
 
 const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
   return (
-    <Group>
-      <Input {...otherProps} />
-      {label && (
-        <FormInputLabel
-          $shrink={Boolean(
-            otherProps.value &&
-              typeof otherProps.value === 'string' &&
-              otherProps.value.length
-          )}
-        >
-          {label}
-        </FormInputLabel>
-      )}
-    </Group>
+    <TextField
+      label={label}
+      variant="outlined"
+      fullWidth
+      margin="normal"
+      {...otherProps}
+    />
   );
 };
 

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { SpinnerContainer } from '../spinner/spinner.styles';
+import { SpinnerContainer } from "../spinner/spinner.styles";
 
 export const BaseButton = styled.button`
   min-width: 165px;
@@ -10,43 +10,81 @@ export const BaseButton = styled.button`
   line-height: 50px;
   padding: 0 35px 0 35px;
   font-size: 15px;
-  background-color: black;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-transform: uppercase;
-  font-family: 'Open Sans';
-  font-weight: bolder;
+  font-family: "Open Sans", sans-serif;
   border: none;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 
   &:hover {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  }
+
+  &:disabled {
+    background: var(--button-disabled, #adb5bd);
+    color: var(--bg-primary);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      background: var(--button-disabled, #adb5bd);
+    }
+  }
+
+  ${SpinnerContainer} {
+    width: 30px;
+    height: 30px;
   }
 `;
 
 export const GoogleSignInButton = styled(BaseButton)`
-  background-color: #4285f4;
-  color: white;
+  background: linear-gradient(135deg, #4285f4 0%, #357ae8 100%);
+  box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
 
   &:hover {
-    background-color: #357ae8;
-    border: none;
+    background: linear-gradient(135deg, #357ae8 0%, #4285f4 100%);
+    box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+  }
+
+  &:active {
+    box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
   }
 `;
 
 export const InvertedButton = styled(BaseButton)`
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background: var(--bg-primary);
+  color: var(--accent-primary);
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
 
   &:hover {
-    background-color: black;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border: none;
+    border-color: transparent;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  &:active {
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
   }
 `;
 

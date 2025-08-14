@@ -1,15 +1,16 @@
-import { Fragment } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { Outlet } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import CartIcon from '../../component/cart-icon/cart-icon.component';
-import CartDropdown from '../../component/cart-dropdown/cart-dropdown.component';
+import CartIcon from "../../component/cart-icon/cart-icon.component";
+import CartDropdown from "../../component/cart-dropdown/cart-dropdown.component";
+import DarkModeToggle from "../../component/dark-mode-toggle/dark-mode-toggle.component";
+import Footer from "../../component/footer/footer.component";
 
-import { selectIsCartOpen } from '../../store/cart/cart.selector';
-import { selectCurrentUser } from '../../store/user/user.selector';
-import { signOutStart } from '../../store/user/user.action';
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { signOutStart } from "../../store/user/user.action";
 
-import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 import {
   NavigationContainer,
@@ -17,7 +18,9 @@ import {
   NavLink,
   NavSpan,
   LogoContainer,
-} from './navigation.styles';
+  MainContent,
+  LayoutContainer,
+} from "./navigation.styles";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -27,27 +30,34 @@ const Navigation = () => {
   const signOutUser = () => dispatch(signOutStart());
 
   return (
-    <Fragment>
+    <LayoutContainer>
       <NavigationContainer>
-        <LogoContainer to='/'>
-          <CrwnLogo className='logo' />
+        <LogoContainer to="/">
+          <CrwnLogo className="logo" />
         </LogoContainer>
         <NavLinks>
-          <NavLink to='/shop'>SHOP</NavLink>
+          <NavLink to="/shop">SHOP</NavLink>
 
           {currentUser ? (
-            <NavSpan onClick={signOutUser}>
-              SIGN OUT
-            </NavSpan>
+            <>
+              <NavLink to="/profile">PROFILE</NavLink>
+              <NavSpan onClick={signOutUser}>SIGN OUT</NavSpan>
+            </>
           ) : (
-            <NavLink to='/auth'>SIGN IN</NavLink>
+            <NavLink to="/auth">SIGN IN</NavLink>
           )}
+          <DarkModeToggle />
           <CartIcon />
         </NavLinks>
         {isCartOpen && <CartDropdown />}
       </NavigationContainer>
-      <Outlet />
-    </Fragment>
+
+      <MainContent>
+        <Outlet />
+      </MainContent>
+
+      <Footer />
+    </LayoutContainer>
   );
 };
 
