@@ -11,6 +11,7 @@ import { checkUserSession } from "./store/user/user.action";
 import { GlobalStyle } from "./global.styles";
 import { ThemeProvider, useTheme } from "./contexts/theme.context";
 import { createMuiTheme } from "./themes/mui.theme";
+import { AdminAuthProvider } from "./cms/admin/admin-auth.context";
 
 const Shop = lazy(() => import("./routes/shop/shop.component"));
 const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
@@ -22,6 +23,13 @@ const Authentication = lazy(
   () => import("./routes/authentication/authentication.component")
 );
 const Profile = lazy(() => import("./routes/profile/profile.component"));
+const AdminDashboard = lazy(() => import("./cms/admin/simple-admin.component"));
+const FullCMSDashboard = lazy(
+  () => import("./cms/admin/full-cms-dashboard.component")
+);
+const AdminUserManagement = lazy(
+  () => import("./cms/admin/admin-user-management.component")
+);
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -44,6 +52,9 @@ const AppContent = () => {
             <Route path="auth" element={<Authentication />} />
             <Route path="profile" element={<Profile />} />
             <Route path="checkout" element={<Checkout />} />
+            <Route path="admin" element={<AdminDashboard />} />
+            <Route path="admin-full" element={<FullCMSDashboard />} />
+            <Route path="admin-users" element={<AdminUserManagement />} />
           </Route>
         </Routes>
       </Suspense>
@@ -55,7 +66,9 @@ const App = () => {
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <AppContent />
+        <AdminAuthProvider>
+          <AppContent />
+        </AdminAuthProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

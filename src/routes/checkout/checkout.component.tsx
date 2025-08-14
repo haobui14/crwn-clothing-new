@@ -12,10 +12,13 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -23,27 +26,30 @@ const Checkout = () => {
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        mt: { xs: 2, md: 6 },
         mb: 4,
         minHeight: "100vh",
-        bgcolor: "var(--bg-primary)",
+        bgcolor: "#f8f9fa", // Light gray background for better contrast
+        px: { xs: 1, sm: 2 },
+        backgroundImage: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)", // Subtle gradient
       }}
     >
       <Paper
-        elevation={4}
+        elevation={8}
         sx={{
-          width: { xs: "99%", sm: "90%", md: "62%" },
-          maxWidth: 1100,
-          minHeight: "90vh",
-          p: { xs: 2, sm: 4 },
-          borderRadius: { xs: 2, sm: 4 },
-          bgcolor: "background.paper",
+          width: { xs: "100%", sm: "95%", md: "85%", lg: "75%" },
+          maxWidth: 1200,
+          minHeight: "80vh",
+          p: { xs: 2, sm: 3, md: 4 },
+          borderRadius: { xs: 3, sm: 6 },
+          bgcolor: "#ffffff", // Pure white for the main container
           boxShadow:
-            "0 8px 40px 0 rgba(102,126,234,0.13), 0 1.5px 0 0 rgba(102,126,234,0.04)",
+            "0 20px 60px rgba(0,0,0,0.12), 0 8px 25px rgba(0,0,0,0.08)",
           position: "relative",
           overflow: "hidden",
+          border: "1px solid rgba(0,0,0,0.06)",
         }}
       >
+        {/* Header gradient */}
         <Box
           sx={{
             position: "absolute",
@@ -65,20 +71,47 @@ const Checkout = () => {
             }}
           />
         </Box>
+
+        {/* Page Title */}
+        <Box sx={{ textAlign: "center", mb: 3, mt: 2 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 700,
+              color: "#2c3e50", // Dark blue-gray for better contrast
+              mb: 1,
+              fontSize: { xs: "1.8rem", md: "2.2rem" },
+            }}
+          >
+            Checkout
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#6c757d", // Medium gray
+              fontSize: { xs: "14px", sm: "16px" },
+              fontWeight: 400,
+            }}
+          >
+            Review your order and complete your purchase
+          </Typography>
+        </Box>
+
+        {/* Column Headers */}
         <Box
           sx={{
             width: "100%",
-            display: "flex",
+            display: { xs: "none", md: "flex" },
             justifyContent: "space-between",
             alignItems: "center",
             borderBottom: "1.5px solid var(--border-color)",
             mb: 2.5,
-            mt: 2,
             px: { xs: 1, sm: 3 },
             py: { xs: 1.5, sm: 2 },
-            borderRadius: "14px 14px 0 0",
-            background: "var(--bg-secondary)",
-            boxShadow: "0 1px 4px 0 rgba(102,126,234,0.03)",
+            borderRadius: "12px",
+            background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)", // Light gradient
+            boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+            border: "1px solid #e9ecef",
           }}
         >
           {["Product", "Description", "Quantity", "Price", "Remove"].map(
@@ -89,7 +122,7 @@ const Checkout = () => {
                   textTransform: "capitalize",
                   width: idx === 4 ? "8%" : "23%",
                   fontWeight: 600,
-                  color: "var(--text-primary)",
+                  color: "#495057", // Dark gray for better readability
                   fontSize: { xs: 13, sm: 16 },
                   letterSpacing: "0.01em",
                   display: "flex",
@@ -102,7 +135,10 @@ const Checkout = () => {
             )
           )}
         </Box>
-        <Divider sx={{ mb: 2, borderColor: "var(--border-color)" }} />
+
+        <Divider sx={{ mb: 2, borderColor: "#dee2e6" }} />
+
+        {/* Cart Items or Empty State */}
         {cartItems.length === 0 ? (
           <Box
             sx={{
@@ -116,34 +152,62 @@ const Checkout = () => {
           >
             <Typography
               variant="h5"
-              sx={{ color: "var(--text-secondary)", fontWeight: 500, mb: 2 }}
+              sx={{
+                color: "#6c757d", // Medium gray
+                fontWeight: 500,
+                mb: 2,
+              }}
             >
               Your cart is empty
             </Typography>
             <Typography
               variant="body2"
-              sx={{ color: "var(--text-secondary)", mb: 4 }}
+              sx={{
+                color: "#adb5bd", // Lighter gray
+                mb: 4,
+                textAlign: "center",
+              }}
             >
-              Add some items to see them here!
+              Looks like you haven't added any items to your cart yet.
             </Typography>
+            <Button
+              variant="contained"
+              onClick={() => navigate("/shop")}
+              sx={{
+                px: 4,
+                py: 1.5,
+                borderRadius: 2,
+                textTransform: "none",
+                fontSize: "16px",
+                backgroundColor: "#667eea",
+                "&:hover": {
+                  backgroundColor: "#5a6fd8",
+                },
+              }}
+            >
+              Continue Shopping
+            </Button>
           </Box>
         ) : (
           <>
+            {/* Cart Items List */}
             <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
-              {cartItems.map((cartItem, idx) => (
+              {cartItems.map((cartItem) => (
                 <Box
                   key={cartItem.id}
                   component="li"
                   sx={{
                     mb: 2.5,
-                    borderRadius: 3.5,
-                    boxShadow: "0 2px 12px 0 rgba(102,126,234,0.06)",
-                    background: "var(--bg-secondary)",
+                    borderRadius: 3,
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                    background: "#ffffff", // Pure white background
                     overflow: "hidden",
-                    border: "1px solid var(--border-color)",
-                    transition: "box-shadow 0.18s",
+                    border: "1px solid #e9ecef",
+                    transition: "box-shadow 0.18s, transform 0.18s",
                     "&:hover": {
-                      boxShadow: "0 4px 18px 0 rgba(102,126,234,0.13)",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
+                      transform: "translateY(-1px)",
+                      border: "1px solid #dee2e6",
                     },
                   }}
                 >
@@ -151,53 +215,141 @@ const Checkout = () => {
                 </Box>
               ))}
             </Box>
+
+            {/* Order Summary and Payment */}
             <Box
               sx={{
                 display: "flex",
-                flexDirection: { xs: "column", sm: "row" },
-                alignItems: { xs: "stretch", sm: "flex-start" },
-                justifyContent: "flex-end",
+                flexDirection: { xs: "column", lg: "row" },
+                alignItems: { xs: "stretch", lg: "flex-start" },
+                justifyContent: "space-between",
                 gap: 4,
                 mt: { xs: 3, sm: 6 },
                 mb: 1,
               }}
             >
+              {/* Order Summary */}
               <Paper
                 elevation={0}
                 sx={{
-                  p: { xs: 2, sm: 3 },
-                  minWidth: 240,
+                  p: { xs: 3, sm: 4 },
+                  minWidth: { xs: "100%", lg: 320 },
                   bgcolor: "var(--bg-primary)",
                   borderRadius: 3,
-                  boxShadow: "0 1px 8px 0 rgba(102,126,234,0.06)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "flex-end",
-                  mb: { xs: 2, sm: 0 },
-                  border: "1px solid var(--border-color)",
+                  mb: { xs: 2, lg: 0 },
+                  border: "1px solid #e9ecef",
+                  backgroundColor: "#f8f9fa",
                 }}
               >
                 <Typography
+                  variant="h6"
                   sx={{
-                    fontSize: { xs: 20, sm: 28 },
-                    fontWeight: 700,
-                    fontFamily: "Poppins, sans-serif",
-                    color: "var(--text-primary)",
-                    letterSpacing: "0.01em",
+                    fontWeight: 600,
+                    color: "#2c3e50", // Dark blue-gray
+                    mb: 2,
                   }}
                 >
-                  Total:{" "}
-                  <span
-                    style={{
-                      fontWeight: 800,
-                      color: "var(--accent-secondary)",
+                  Order Summary
+                </Typography>
+
+                <Box sx={{ mb: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      mb: 1,
                     }}
                   >
-                    ${cartTotal}
-                  </span>
-                </Typography>
+                    <Typography variant="body2" color="#6c757d">
+                      Items (
+                      {cartItems.reduce(
+                        (total, item) => total + item.quantity,
+                        0
+                      )}
+                      )
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="#495057"
+                      fontWeight={600}
+                    >
+                      ${cartTotal}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      mb: 1,
+                    }}
+                  >
+                    <Typography variant="body2" color="#6c757d">
+                      Shipping
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.success"
+                      fontWeight={600}
+                    >
+                      FREE
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      mb: 2,
+                    }}
+                  >
+                    <Typography variant="body2" color="#6c757d">
+                      Tax
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="#495057"
+                      fontWeight={600}
+                    >
+                      ${(cartTotal * 0.08).toFixed(2)}
+                    </Typography>
+                  </Box>
+                  <Divider sx={{ borderColor: "#dee2e6", my: 2 }} />
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "#2c3e50",
+                    }}
+                  >
+                    Total:
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: 20, sm: 24 },
+                      fontWeight: 800,
+                      fontFamily: "Poppins, sans-serif",
+                      color: "#667eea", // Purple theme color
+                      letterSpacing: "0.01em",
+                    }}
+                  >
+                    ${(cartTotal + cartTotal * 0.08).toFixed(2)}
+                  </Typography>
+                </Box>
               </Paper>
-              <Box sx={{ flex: 1, minWidth: 240 }}>
+
+              {/* Payment Form */}
+              <Box sx={{ flex: 1, minWidth: { xs: "100%", lg: 400 } }}>
                 <PaymentForm />
               </Box>
             </Box>

@@ -27,6 +27,12 @@ const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
 
+  // Simple admin check - you can make this more sophisticated
+  const isAdmin =
+    currentUser &&
+    (currentUser.email === "admin@crownclothing.com" ||
+      currentUser.email.includes("admin"));
+
   const signOutUser = () => dispatch(signOutStart());
 
   return (
@@ -41,6 +47,7 @@ const Navigation = () => {
           {currentUser ? (
             <>
               <NavLink to="/profile">PROFILE</NavLink>
+              {isAdmin && <NavLink to="/admin">ADMIN</NavLink>}
               <NavSpan onClick={signOutUser}>SIGN OUT</NavSpan>
             </>
           ) : (

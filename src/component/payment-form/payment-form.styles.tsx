@@ -14,7 +14,7 @@ export const FormContainer = styled.form`
   min-width: 500px;
 
   h2 {
-    color: var(--text-primary);
+    color: #2c3e50;
     margin-bottom: 1rem;
     font-family: "Poppins", sans-serif;
     font-weight: 600;

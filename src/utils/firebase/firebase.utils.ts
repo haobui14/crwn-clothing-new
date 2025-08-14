@@ -25,6 +25,7 @@ import {
   getDocs,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 import { Category } from "../../store/categories/categories.types";
 
@@ -53,6 +54,7 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
+export const storage = getStorage();
 
 export type ObjectToAdd = {
   title: string;
